@@ -305,6 +305,7 @@ function levelDraw()
 			map(sd.mapX * 16,sd.mapY * 16)
 			coinAnim(coins)
 			spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
+			print(sceneManager.score)
 end
 -->8
 function _init()
