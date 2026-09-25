@@ -79,7 +79,7 @@ sceneManager = {
 			plr.y += plr.dy
 
 			if collide(plr, sd, 1) then
-				plr.y -= glb.gr
+				plr.y -= plr.dy
 				plr.dy = 0
 				plr.grounded = true
 			end
@@ -100,14 +100,20 @@ sceneManager = {
 			plr.x += plr.dx
 
 			if collide(plr, sd, 0) then
-				plr.x -= plr.ax
+				plr.x -= plr.dx
 				plr.dx = 0
 			end
 
-			if plr.dx == 0 then
-				plr.animState = "idle"
-			else
+			if not btn(0) or not btn(1) then
 				plr.animState = "walk"
+			end
+
+			if plr.dx < 0 then
+				plr.fx = true
+			end
+
+			if plr.dx > 0 then
+				plr.fx = false
 			end
 
 			if not plr.grounded then
