@@ -39,6 +39,40 @@ function trail(o, sd)
 		o.old.y = flr((o.y + (o.h / 2)) / 8) + (sd.mapY * 16)
 	end
 end
+
+function coinDetection() 
+	local coins = {}
+	for x = 0, 15 do
+		for y = 0, 15 do
+			local tx = sd.mapX * 16 + x
+      local ty = sd.mapY * 16 + y
+			local f = fget(mget(tx, ty), 3)
+			if f then
+			add(coins, {
+				x = x * 8,
+				y = y * 8,
+				f = 0
+			})
+			mset(tx, ty, 0)
+			end
+		end
+	end
+	return coins
+end
+
+function coinAnim(coins)
+	local frames = {
+	2,2,2,2,2, 	2,2,2,2,2, 	
+	3,3,3,3,3,	3,3,3,3,3,
+	4,4,4,4,4,	4,4,4,4,4,
+	5,5,5,5,5,	5,5,5,5,5,	
+	}
+	for c in all(coins) do
+		local s = frames[(c.f % #frames) + 1] 
+		spr(s, c.x, c.y, 1, 1, false, false)
+		c.f += 1
+	end
+end
 -->8
 sceneManager = {
 	l1 = {
@@ -89,6 +123,7 @@ sceneManager = {
 				gr = 0.5,
 				fr = 0.75
 			}
+			coins = coinDetection()
  end,
 		update = function()
 			playerUpdate()
@@ -150,6 +185,7 @@ sceneManager = {
 				gr = 0.5,
 				fr = 0.75
 			}
+			coins = coinDetection()
  end,
 		update = function()
 			playerUpdate()
@@ -250,6 +286,7 @@ end
 function levelDraw()
 			cls(0)
 			map(sd.mapX * 16,sd.mapY * 16)
+			coinAnim(coins)
 			spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
 end
 -->8
