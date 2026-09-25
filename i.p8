@@ -1,10 +1,125 @@
 pico-8 cartridge // http://www.pico-8.com
 version 43
 __lua__
-function _draw()
-	cls(15)
-	map(0,0)
+function onDown(k, f)
+  if btn(k) then
+    f()
+  end
 end
+
+function onClick(k, f)
+  if btnp(k) then
+    f()
+  end
+end
+
+function collide(o, sd, f)
+  local tx = flr(o.x / 8) + (sd.mapX * 16)
+  local ty = flr(o.y / 8) + (sd.mapY * 16)
+  local tw = flr((o.x + o.w * 8 - 1) / 8) + (sd.mapX * 16)
+  local th = flr((o.y + o.h * 8 - 1) / 8) + (sd.mapY * 16)
+
+  return fget(mget(tx, ty), f)
+      or fget(mget(tw, ty), f)
+      or fget(mget(tx, th), f)
+      or fget(mget(tw, th), f)
+end
+-->8
+sceneManager = {
+	test = {
+		init = function()
+			sd = {
+  			mapX = 0,
+  			mapY = 0
+			}
+
+			plr = {
+				spr = 17,
+				grounded = false,
+
+				x = 0, y = 0,
+				w = 1, h = 1,
+				dx = 0, dy = 0,
+				ax = 0.5, ay = 4,
+				mdx = 2.5, mdy = 4,
+				fx = false, fy = false,
+
+				animState = "idle",
+				animIndex = 1,
+
+				anims = {
+					idle = {
+						sprs = { 17, 18 }
+					}
+				}
+			}
+			
+			glb = {
+				gr = 0.5,
+				fr = 0.75
+			}
+ end,
+		update = function()
+			onClick(4, function ()
+				if plr.grounded then 
+					plr.dy -= plr.ay
+					plr.grounded = false
+				end
+			end)
+
+			if not plr.grounded then
+				plr.dy += glb.gr
+			end
+
+			plr.dy = mid(-plr.mdy, plr.dy, plr.mdy)
+			plr.y += plr.dy
+
+			if collide(plr, sd, 1) then
+				plr.y -= glb.gr
+				plr.dy = 0
+				plr.grounded = true
+			end
+			
+			onDown(1, function() 
+				plr.dx += plr.ax
+			end)
+
+			onDown(0, function()
+				plr.dx -= plr.ax
+			end)
+
+			if not btn(0) or not btn(1) then
+				plr.dx *= glb.fr
+			end
+
+			plr.dx = mid(-plr.mdx, plr.dx, plr.mdx)
+			plr.x += plr.dx
+		end,
+		draw = function() 
+			cls(15)
+			spr(plr.spr, plr.x, plr.y, plr.w, plr.h, plr.fx, plr.fy)
+			map(sd.mapX * 16,sd.mapY * 16)
+		end,
+
+		transition = false,
+		transitionFun = function() end
+	},
+	cur = "test"
+}
+
+-->8
+function _init()
+	sceneManager[sceneManager.cur].init()
+end
+
+function _update()
+	sceneManager[sceneManager.cur].update()
+end
+
+function _draw()
+	sceneManager[sceneManager.cur].draw()
+end
+
 __gfx__
 00000000000330000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000001131000001100000041000000110000001900000000000000000000000000000000000000000000000000000000000000000000000000000000000
