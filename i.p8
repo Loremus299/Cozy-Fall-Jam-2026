@@ -49,10 +49,10 @@ sceneManager = {
 
 				anims = {
 					idle = {
-						sprs = { 17, 17, 17, 18, 18, 18 }
+						sprs = { 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18 }
 					},
 					walk = {
-						sprs = { 19, 20 }
+						sprs = { 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20 }
 					},
 					jump = {
 						sprs = { 21 }
@@ -104,8 +104,10 @@ sceneManager = {
 				plr.dx = 0
 			end
 
-			if not btn(0) or not btn(1) then
+			if btn(0) or btn(1) then
 				plr.animState = "walk"
+			else
+				plr.animState = "idle"
 			end
 
 			if plr.dx < 0 then
