@@ -148,16 +148,13 @@ sceneManager = {
 			levelDraw()
 			print("Walk with <-->", 30, 66, 8)
 		end,
-
-		transition = false,
-		transitionFun = function() end
 	},
 	l2 = {
 		init = function()
 			sd = {
   			mapX = 1,
   			mapY = 0,
-				next = "l1"
+				next = "last"
 			}
 
 			plr = {
@@ -201,7 +198,7 @@ sceneManager = {
 				fr = 0.75
 			}
 			coins = coinDetection()
- end,
+ 		end,
 		update = function()
 			playerUpdate()
 		end,
@@ -210,10 +207,17 @@ sceneManager = {
 			levelDraw()
 			print("Jump", 56, 72, 8)
 		end,
-
-		transition = false,
-		transitionFun = function() end
 	},
+
+	last = {
+		init = function() end,
+		update = function() end,
+		draw = function() 
+			cls(4)
+			print("Thank you for playing.", 20, 64, 9)
+		end
+	},
+
 	cur = "l1"
 }
 
