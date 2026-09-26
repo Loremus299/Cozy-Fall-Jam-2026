@@ -83,7 +83,7 @@ sceneManager = {
 		draw = function()
 			cls(4)
 			map(96 , 16)
-			print("the tree sheds its leaves...", 4, 120, 9)
+			print("the tree sheds its leafs...", 4, 120, 9)
 		end,
 	},
 
