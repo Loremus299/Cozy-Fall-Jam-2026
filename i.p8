@@ -114,7 +114,7 @@ sceneManager = {
 		draw = function()
 			cls(4)
 			map(96, 32)
-			print("head into the tree...", 4, 120, 9)
+			print("head into the tree roots...", 4, 120, 9)
 		end,
 	},
 
