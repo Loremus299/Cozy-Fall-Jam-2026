@@ -753,9 +753,32 @@ sceneManager = {
 			displayText = ""
 			subTitle = ""
 
-			if sceneManager.score < 0 then
-				displayText = "really ? this bad ?!"
-				subTitle = "you should retry."
+			local score = sceneManager.score
+
+			if score < 0 then 
+					displayText = "really ? this bad ?!" 
+					subTitle = "you should retry." 
+			elseif score == 0 then
+					displayText = "starting out"
+					subTitle = "give it a shot!"
+			elseif score <= 10 then 
+					displayText = "good start" 
+					subTitle = "but bad score." 
+			elseif score <= 16 then 
+					displayText = "so good" 
+					subTitle = "and yet so bad." 
+			elseif score < 27 then 
+					displayText = "more than half" 
+					subTitle = "you can do better." 
+			elseif score < 33 then 
+					displayText = "so close to perfect!" 
+					subTitle = "just one more try." 
+			elseif score == 33 then 
+					displayText = "everything i could" 
+					subTitle = "as good as dev" 
+			else
+					displayText = "how's that even" 
+					subTitle = "possible ??!!!" 
 			end
 		end,
 
