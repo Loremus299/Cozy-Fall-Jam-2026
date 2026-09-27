@@ -57,9 +57,7 @@ sceneManager = {
 	score = 0,
 
 	first = {
-		init = function()
-			music(0)
-		end,
+		init = function() end,
 		update = function()
 			onClick(5, function() 
 				sceneManager.cur = "s1"
@@ -138,6 +136,7 @@ sceneManager = {
 
 	l1 = {
 		init = function()
+			music(0)
 			sd = {
   			mapX = 0,
   			mapY = 0,
