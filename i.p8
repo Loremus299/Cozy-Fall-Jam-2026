@@ -35,8 +35,8 @@ function trail(o, sd)
 
 	if not touching then
 		mset(o.old.x, o.old.y, 6)
-		o.old.x = flr((o.x + (o.w / 2)) / 8) + (sd.mapX * 16)
-		o.old.y = flr((o.y + (o.h / 2)) / 8) + (sd.mapY * 16)
+		o.old.x = flr((o.x + (o.w * 4)) / 8) + (sd.mapX * 16)
+		o.old.y = flr((o.y + (o.h * 4)) / 8) + (sd.mapY * 16)
 	end
 end
 
